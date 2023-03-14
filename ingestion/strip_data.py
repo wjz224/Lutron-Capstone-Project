@@ -1,8 +1,14 @@
+"""This script strips the raw data to only include the columns we need for the project."""
+
 import pandas as pd
 import os
 
 # austin
 def austin():
+    """
+    Extracts needed columns from the Austin data and saves it as a csv file
+    :return austin_stripped: the stripped data as a pandas dataframe
+    """
     austin_raw = pd.read_csv("raw_data/austintexas.csv")
     austin_stripped = austin_raw[austin_raw.contractor_trade == "Electrical Contractor"]
     austin_stripped = austin_raw[["issue_date", "location", "contractor_company_name"]]
@@ -25,6 +31,10 @@ def austin():
 
 # new york
 def new_york():
+    """
+    Extracts needed columns from the New York data and saves it as a csv file
+    :return new_york_stripped: the stripped data as a pandas dataframe
+    """
     new_york_raw = pd.read_csv("raw_data/cityofnewyork.csv")
     new_york_stripped = new_york_raw[["job_start_date","firm_name", 'gis_latitude', 'gis_longitude']]
     new_york_stripped = new_york_stripped.dropna(subset=["firm_name"])
@@ -35,6 +45,10 @@ def new_york():
 
 # chicago
 def chicago():
+    """
+    Extracts needed columns from the Chicago data and saves it as a csv file
+    :return: chicago_stripped: the stripped data as a pandas dataframe
+    """
     chicago_raw = pd.read_csv("raw_data/cityofchicago.csv")
     chicago_stripped = chicago_raw[chicago_raw.contact_1_type == "CONTRACTOR-ELECTRICAL"]
     chicago_stripped = chicago_stripped[["issue_date", "contact_1_name", "latitude", "longitude"]]
@@ -46,6 +60,10 @@ def chicago():
 
 # philly
 def philly():
+    """
+    Extracts needed columns from the Philadelphia data and saves it as a csv file
+    :return: philly_stripped: the stripped data as a pandas dataframe
+    """
     philly_raw = pd.read_csv("raw_data/philly.csv")
     philly_stripped = philly_raw[philly_raw.permitdescription == "ELECTRICAL PERMIT"]
     # philly_stripped["location"] = f"({philly_stripped['lat']}, {philly_stripped['lng']})"
@@ -60,6 +78,10 @@ def philly():
 # mesa
 # can't filter by contractor trade
 def mesa():
+    """
+    Extracts needed columns from the Mesa data and saves it as a csv file
+    :return: mesa_stripped: the stripped data as a pandas dataframe
+    """
     mesa_raw = pd.read_csv("raw_data/mesaaz.csv")
     mesa_stripped = mesa_raw[["issued_date", "contractor_name", "latitude", "longitude"]]
     mesa_stripped = mesa_stripped.dropna(subset=["contractor_name"])
@@ -70,6 +92,10 @@ def mesa():
 
 # la
 def la():
+    """
+    Extracts needed columns from the Los Angeles data and saves it as a csv file
+    :return: la_stripped: the stripped data as a pandas dataframe
+    """
     la_raw = pd.read_csv("raw_data/lacity.csv")
     la_stripped = la_raw[["issue_date", "contractors_business_name", "location_1", "permit_type"]]
     latitude = []
