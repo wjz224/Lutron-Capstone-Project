@@ -8,4 +8,6 @@ install:
 ingest:
 	cd ingestion
 	python get_socrata_data.py
-	
+	python get_data.py
+	python strip_data.py
+	python combine_data.py
