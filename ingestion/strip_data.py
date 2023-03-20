@@ -1,9 +1,8 @@
 """This script strips the raw data to only include the columns we need for the project."""
 
 import pandas as pd
-import os
+import logging
 
-# austin
 def austin():
     """
     Extracts needed columns from the Austin data and saves it as a csv file
@@ -26,10 +25,9 @@ def austin():
     austin_stripped.drop(columns=["location"], inplace=True)
     austin_stripped["issue_date"] = austin_stripped["issue_date"].apply(lambda x: x.split("T")[0])
     austin_stripped.to_csv("stripped_data/austintexas.csv")
-    print("Saved austintexas.csv")
+    logging.info("Saved austintexas.csv")
     return austin_stripped
 
-# new york
 def new_york():
     """
     Extracts needed columns from the New York data and saves it as a csv file
@@ -40,10 +38,9 @@ def new_york():
     new_york_stripped = new_york_stripped.dropna(subset=["firm_name"])
     new_york_stripped["job_start_date"] = new_york_stripped["job_start_date"].apply(lambda x: x.split("T")[0])
     new_york_stripped.to_csv("stripped_data/cityofnewyork.csv")
-    print("Saved cityofnewyork.csv")
+    logging.info("Saved cityofnewyork.csv")
     return new_york_stripped
 
-# chicago
 def chicago():
     """
     Extracts needed columns from the Chicago data and saves it as a csv file
@@ -55,10 +52,9 @@ def chicago():
     chicago_stripped = chicago_stripped.dropna(subset=["contact_1_name"])
     chicago_stripped["issue_date"] = chicago_stripped["issue_date"].apply(lambda x: x.split("T")[0])
     chicago_stripped.to_csv("stripped_data/cityofchicago.csv")
-    print("Saved cityofchicago.csv")
+    logging.info("Saved cityofchicago.csv")
     return chicago_stripped
 
-# philly
 def philly():
     """
     Extracts needed columns from the Philadelphia data and saves it as a csv file
@@ -72,10 +68,9 @@ def philly():
     philly_stripped = philly_stripped.dropna(subset=["contractorname"])
     philly_stripped["permitissuedate"] = philly_stripped["permitissuedate"].apply(lambda x: x.split(" ")[0])
     philly_stripped.to_csv("stripped_data/philly.csv")
-    print("Saved philly.csv")
+    logging.info("Saved philly.csv")
     return philly_stripped
 
-# mesa
 # can't filter by contractor trade
 def mesa():
     """
@@ -87,10 +82,9 @@ def mesa():
     mesa_stripped = mesa_stripped.dropna(subset=["contractor_name"])
     mesa_stripped["issued_date"] = mesa_stripped["issued_date"].apply(lambda x: x.split("T")[0])
     mesa_stripped.to_csv("stripped_data/mesaaz.csv")
-    print("Saved mesaaz.csv")
+    logging.info("Saved mesaaz.csv")
     return mesa_stripped
 
-# la
 def la():
     """
     Extracts needed columns from the Los Angeles data and saves it as a csv file
@@ -117,8 +111,9 @@ def la():
     la_stripped = la_stripped.dropna(subset=["contractors_business_name"])
     la_stripped["issue_date"] = la_stripped["issue_date"].apply(lambda x: x.split("T")[0])
     la_stripped.to_csv("stripped_data/lacity.csv")
-    print("Saved lacity.csv")
+    logging.info("Saved lacity.csv")
     return la_stripped
 
-city_functions = [austin, new_york, chicago, philly, mesa, la]
-data_list = [city() for city in city_functions]
+if __name__ == "__main__":
+    city_functions = [austin, new_york, chicago, philly, mesa, la]
+    data_list = [city() for city in city_functions]

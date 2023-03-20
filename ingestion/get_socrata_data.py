@@ -2,6 +2,7 @@
 
 from sodapy import Socrata
 import pandas as pd
+import logging
 
 # dictionary of the city api urls and their dataset ids
 CITIES: "dict[str, str]" = {"data.cityofnewyork.us":"dm9a-ab7w",
@@ -31,7 +32,8 @@ def main():
             try:
                 get_data(city, CITIES[city])
                 break
-            except:
+            except Exception as e:
+                logging.error(e)
                 pass
 
 if __name__ == "__main__":
