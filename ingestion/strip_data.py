@@ -71,10 +71,10 @@ def philly():
     logging.info("Saved philly.csv")
     return philly_stripped
 
-# can't filter by contractor trade
 def mesa():
     """
     Extracts needed columns from the Mesa data and saves it as a csv file
+    Can't filter by contractor trade
     :return: mesa_stripped: the stripped data as a pandas dataframe
     """
     mesa_raw = pd.read_csv("raw_data/mesaaz.csv")

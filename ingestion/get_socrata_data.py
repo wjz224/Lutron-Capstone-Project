@@ -23,17 +23,22 @@ def get_data(url, dataset_id) -> None:
     df = pd.DataFrame.from_dict(results)
     # Uses part of the url as the name of the csv file
     df.to_csv(f"raw_data/{url.split('.')[1]}.csv")
-    print(f"Saved {url.split('.')[1]}.csv")
+    logging.info(f"Saved {url.split('.')[1]}.csv")
 
 def main():
     for city in CITIES:
-        # The API sometimes times out, so this loop will try to get the data until it succeeds
+        # The API sometimes times out, so this loop will try to get the data 3 times
+        count = 0
         while 1:
             try:
                 get_data(city, CITIES[city])
                 break
             except Exception as e:
                 logging.error(e)
+                count += 1
+                if count == 3:
+                    logging.error(f"Failed to get data from {city}")
+                    break
                 pass
 
 if __name__ == "__main__":
