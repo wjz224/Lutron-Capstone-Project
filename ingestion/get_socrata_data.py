@@ -22,7 +22,7 @@ def get_data(url, dataset_id) -> None:
     results = client.get(dataset_id)
     df = pd.DataFrame.from_dict(results)
     # Uses part of the url as the name of the csv file
-    df.to_csv(f"raw_data/{url.split('.')[1]}.csv")
+    df.to_csv(f"ingestion/raw_data/{url.split('.')[1]}.csv")
     logging.info(f"Saved {url.split('.')[1]}.csv")
 
 def main():
