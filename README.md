@@ -1,13 +1,13 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+This README documents whatever steps are necessary to get the data scripts running
 
 ### What is this repository for? ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
-
+To run, open terminal and input: 
+- ‘make reqs’ saves the requirements 
+- ‘make install’ installs the requirements 
+- ‘make ingest’ runs the ingestion scripts
 
 
 ### Contributors ###
