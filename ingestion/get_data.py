@@ -19,7 +19,7 @@ def get_data(url, location):
     # Use Pandas to read the CSV file from the URL
     df = pd.read_csv(url)
     # Save the CSV file to the current directory
-    df.to_csv(f"ingestion/raw_data/{location}.csv", index=False)
+    df.to_csv(f"./raw_data/{location}.csv", index=False)
     logging.info(f"Saved {location}.csv")
 
 def get_socrata_data(url, dataset_id, location):
@@ -31,12 +31,12 @@ def get_socrata_data(url, dataset_id, location):
     client = Socrata(url, None)
     results = client.get(dataset_id)
     df = pd.DataFrame.from_dict(results)
-    # Uses part of the url as the name of the csv file
-    df.to_csv(f"ingestion/raw_data/{location}.csv")
+    # Saves dataframe as a csv file
+    df.to_csv(f"./raw_data/{location}.csv")
     logging.info(f"Saved {location}.csv")
 
 def main():
-    locations = ["philly"]
+    locations = ["new_york", "chicago", "mesa", "la", "austin", "philly"]
     for place in locations:
         meta = META_CITY[place]
         if meta[0] == "socrata":
