@@ -11,12 +11,18 @@ if [ "$1" = "--ingest" ]; then
     if [ ! -d "combined_data" ]; then
         mkdir combined_data
     fi
-    python get_data.py
-    echo "Data downloaded"
-    python strip_data.py
-    echo "Data stripped"
-    python combine_data.py
-    echo "Data combined"
+    if [ "$2" = "get" ] || [ -z "$2" ]; then
+        python get_data.py
+        echo "Data downloaded"
+    fi
+    if [ "$2" = "strip" ] || [ -z "$2" ]; then
+        python strip_data.py
+        echo "Data stripped"
+    fi
+    if [ "$2" = "combine" ] || [ -z "$2" ]; then
+        python combine_data.py
+        echo "Data combined"
+    fi
     cd ..
 elif [ "$1" = "--install" ]; then
     pip install -r requirements.txt
