@@ -16,6 +16,10 @@ def austin():
     for i in range(len(austin_stripped) - 1):
         # {'latitude': '30.29406429', 'longitude': '-97.69323996', 'human_address': '{""address"": """", ""city"": """", ""state"": """", ""zip"": """"}'}
         location_object = austin_stripped["location"][i]
+        if type(location_object) != str:
+            latitude.append("nan")
+            longitude.append("nan")
+            continue
         latitude_temp, longitude_temp = location_object.split(",")[:2]
         latitude.append(latitude_temp.split("'")[3])
         longitude.append(longitude_temp.split("'")[3])
@@ -124,4 +128,4 @@ def strip_dataframes(city_list):
     return data_list
 
 if __name__ == "__main__":
-    print(len(strip_dataframes(["new_york", "chicago", "mesa", "la", "austin"])))
+    print(len(strip_dataframes(["austin"])))
