@@ -19,7 +19,7 @@ def combine_data():
 
     # for loop that will append the data to the lists
     for file in os.listdir(os.getcwd()):
-        # dataframe to store the standarized data for each city
+        # dataframe to store the standardized data for each city
         standardized_df = pd.DataFrame()
         # read all files that end with .csv
         if file.endswith('.csv'):
