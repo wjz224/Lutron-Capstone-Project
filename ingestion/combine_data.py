@@ -2,7 +2,7 @@ import pandas as pd # pip install pandas
 import os
 
 def combine_data():
-    # list constants that hold the identified similiar names
+    # list constants that hold the identified similar names
     column_map = {
         "issued_date" : {'issue_date', 'job_start_date', 'issued_date', 'permitissuedate'},
         "contractor" : {"contractor_company_name", "contact_1_name","firm_name", "contractor_name", "contractorname"},
@@ -19,7 +19,7 @@ def combine_data():
 
     # for loop that will append the data to the lists
     for file in os.listdir(os.getcwd()):
-        # dataframe to store the standarized data for each city
+        # dataframe to store the standardized data for each city
         standardized_df = pd.DataFrame()
         # read all files that end with .csv
         if file.endswith('.csv'):
