@@ -8,7 +8,8 @@ META_CITY = {"new_york":("socrata", "data.cityofnewyork.us", "dm9a-ab7w"),
             "mesa": ("socrata", "data.mesaaz.gov", "2gkz-7z4f"),
             "la": ("socrata", "data.lacity.org", "nbyu-2ha9"),
             "austin": ("socrata", "data.austintexas.gov", "3syk-w9eu"),
-            "philly": ("non_socrata", "https://phl.carto.com/api/v2/sql?filename=permits&format=csv&skipfields=cartodb_id,the_geom,the_geom_webmercator&q=SELECT%20*,%20ST_Y(the_geom)%20AS%20lat,%20ST_X(the_geom)%20AS%20lng%20FROM%20permits%20WHERE%20permitissuedate%20%3E=%20%272016-01-01%27")}
+            "philly_one": ("non_socrata", "https://phl.carto.com/api/v2/sql?filename=permits&format=csv&skipfields=cartodb_id,the_geom,the_geom_webmercator&q=SELECT%20*,%20ST_Y(the_geom)%20AS%20lat,%20ST_X(the_geom)%20AS%20lng%20FROM%20permits%20WHERE%20permitissuedate%20%3E=%20%272016-01-01%27"),
+            "philly_two": ("non_socrata", "https://opendata-downloads.s3.amazonaws.com/opa_properties_public.csv")}
 
 def get_data(url, location):
     """
@@ -21,6 +22,7 @@ def get_data(url, location):
     # Save the CSV file to the current directory
     df.to_csv(f"./raw_data/{location}.csv", index=False)
     logging.info(f"Saved {location}.csv")
+
 
 def get_socrata_data(url, dataset_id, location):
     """
@@ -35,8 +37,9 @@ def get_socrata_data(url, dataset_id, location):
     df.to_csv(f"./raw_data/{location}.csv")
     logging.info(f"Saved {location}.csv")
 
+
 def main():
-    locations = ["new_york", "chicago", "mesa", "la", "austin", "philly"]
+    locations = ["new_york", "chicago", "mesa", "la", "austin", "philly_one", "philly_two"]
     for place in locations:
         meta = META_CITY[place]
         if meta[0] == "socrata":
