@@ -7,9 +7,6 @@ install:
 
 ingest:
 	cd ingestion
-	mkdir raw_data
-	mkdir stripped_data
-	mkdir combined_data
 	python get_socrata_data.py
 	python get_data.py
 	python strip_data.py
