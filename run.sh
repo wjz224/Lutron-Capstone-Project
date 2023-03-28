@@ -29,4 +29,8 @@ elif [ "$1" = "--install" ]; then
 elif [ "$1" = "--reqs" ]; then
     pip install pipreqs
 	pipreqs . --force
+elif [ "$1" = "--clean" ]; then
+    rm -rf ./ingestion/raw_data
+    rm -rf ./ingestion/stripped_data
+    rm -rf ./ingestion/combined_data
 fi

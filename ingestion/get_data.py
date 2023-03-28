@@ -39,12 +39,12 @@ def get_socrata_data(url, dataset_id, location, date_column):
         df = pd.read_csv(f"./raw_data/{location}.csv")
         most_recent_date = df[date_column][0]
         print(most_recent_date)
-        results = client.get(dataset_id, where=f"{date_column} > '{most_recent_date}'", order=f"{date_column} DESC", limit=100)
-        df = df.append(pd.DataFrame.from_dict(results))
+        results = client.get(dataset_id, where=f"{date_column}>'{most_recent_date}'", order=f"{date_column} DESC", limit=100_000_000)
+        df = pd.DataFrame.from_dict(results).append(df)
     else:
-        results = client.get(dataset_id, order=f"{date_column} DESC", limit=100)
+        results = client.get(dataset_id, order=f"{date_column} DESC", limit=100_000_000)
+        df = pd.DataFrame.from_dict(results)
     # print(client.get(dataset_id, select=":updated_at"))
-    df = pd.DataFrame.from_dict(results)
     print(len(df))
     # Saves dataframe as a csv file
     df.to_csv(f"./raw_data/{location}.csv")
