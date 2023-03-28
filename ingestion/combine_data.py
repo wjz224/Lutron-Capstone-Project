@@ -33,9 +33,8 @@ def combine_data():
                         # copy over the city's src_column to the standardized_df dataframe's dst_column
                         standardized_df[dst_column] = pd.Series(city[src_column])
             # get file name using os.path.basename(file)
-            city_name, file_extension = os.path.splitext(file)
             # set the dataframe for the current city's "city" column to the city_name which is the file's name.
-            standardized_df['city'] = city_name
+            standardized_df['city'], _ = os.path.splitext(file)
             # list to hold the city and the combined data frame for concat
             combine = [combined_df, standardized_df]
             # concat the city data frame and the current combined data frame
