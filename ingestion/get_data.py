@@ -14,7 +14,7 @@ META_CITY = {"new_york":("socrata", "data.cityofnewyork.us", "dm9a-ab7w", "job_s
 # Number of times the script will try to get data from a Socrata API
 SOCRATA_TRIES = 3
 # Max number of rows to call
-ROW_LIMIT = 100
+ROW_LIMIT = 5
 
 def get_data(url, location):
     """
