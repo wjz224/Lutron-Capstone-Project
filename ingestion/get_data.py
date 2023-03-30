@@ -13,6 +13,8 @@ META_CITY = {"new_york":("socrata", "data.cityofnewyork.us", "dm9a-ab7w", "job_s
             "philly_two": ("non_socrata", "https://opendata-downloads.s3.amazonaws.com/opa_properties_public.csv")}
 # Number of times the script will try to get data from a Socrata API
 SOCRATA_TRIES = 3
+# Max number of rows to call
+ROW_LIMIT = 100
 
 def get_data(url, location):
     """
@@ -39,10 +41,10 @@ def get_socrata_data(url, dataset_id, location, date_column):
         df = pd.read_csv(f"./raw_data/{location}.csv")
         most_recent_date = df[date_column][0]
         print(most_recent_date)
-        results = client.get(dataset_id, where=f"{date_column}>'{most_recent_date}'", order=f"{date_column} DESC", limit=100_000_000)
+        results = client.get(dataset_id, where=f"{date_column}>'{most_recent_date}'", order=f"{date_column} DESC", limit=ROW_LIMIT)
         df = pd.DataFrame.from_dict(results).append(df)
     else:
-        results = client.get(dataset_id, order=f"{date_column} DESC", limit=100_000_000)
+        results = client.get(dataset_id, order=f"{date_column} DESC", limit=ROW_LIMIT)
         df = pd.DataFrame.from_dict(results)
     # print(client.get(dataset_id, select=":updated_at"))
     print(len(df))
@@ -52,7 +54,7 @@ def get_socrata_data(url, dataset_id, location, date_column):
 
 
 def main():
-    locations = ["chicago", "mesa", "la", "austin"]
+    locations = ["austin"]
     for place in locations:
         meta = META_CITY[place]
         if meta[0] == "socrata":
