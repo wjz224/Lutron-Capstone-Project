@@ -2,9 +2,10 @@ import logging
 import pandas as pd
 from sodapy import Socrata
 import os
+import sys
 
 # Dictionary of cities and their corresponding API information
-META_CITY = {"new_york":("socrata", "data.cityofnewyork.us", "dm9a-ab7w", "job_start_date:"),
+META_CITY = {"new_york":("socrata", "data.cityofnewyork.us", "dm9a-ab7w", "job_start_date"),
             "chicago": ("socrata", "data.cityofchicago.org", "ydr8-5enu", "issue_date"),
             "mesa": ("socrata", "data.mesaaz.gov", "2gkz-7z4f", "issued_date"),
             "la": ("socrata", "data.lacity.org", "nbyu-2ha9", "issue_date"),
@@ -54,7 +55,7 @@ def get_socrata_data(url, dataset_id, location, date_column):
 
 
 def main():
-    locations = ["austin"]
+    locations = ["new_york"]
     for place in locations:
         meta = META_CITY[place]
         if meta[0] == "socrata":
@@ -78,4 +79,5 @@ def main():
 
 
 if __name__ == "__main__":
+    logging.basicConfig(stream=sys.stdout)
     main()
