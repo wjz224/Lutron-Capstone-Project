@@ -11,7 +11,7 @@ def austin():
     """
     austin_raw = pd.read_csv("./raw_data/austin.csv")
     austin_stripped = austin_raw[austin_raw.contractor_trade == "Electrical Contractor"]
-    austin_stripped = austin_raw[["issue_date", "location", "contractor_company_name"]]
+    austin_stripped = austin_stripped[["issue_date", "location", "contractor_company_name"]]
     latitude = []
     longitude = []
     for i in range(len(austin_stripped) - 1):
@@ -138,4 +138,4 @@ def strip_dataframes(city_list):
 
 if __name__ == "__main__":
     logging.basicConfig(stream=sys.stdout)
-    logging.info(len(strip_dataframes(["austin", "new_york", "chicago", "mesa", "la"])))
+    logging.info(len(strip_dataframes(["austin"])))
