@@ -46,6 +46,12 @@ class GetDataTest(unittest.TestCase):
         Tests the stripping function for Los Angeles.
         """
         self.test_austin("la")
+        
+    def test_philly(self):
+        """
+        Tests the stripping function for Philadelphia.
+        """
+        self.test_austin("philly")
 
 if __name__ == "__main__":
     logging.basicConfig(stream=sys.stdout)

@@ -68,7 +68,7 @@ def philly():
     Extracts needed columns from the Philadelphia data and saves it as a csv file
     :return: philly_stripped: the stripped data as a pandas dataframe
     """
-    philly_raw = pd.read_csv("./raw_data/philly_one.csv")
+    philly_raw = pd.read_csv("./raw_data/philly.csv")
     philly_stripped = philly_raw[philly_raw.permitdescription == "ELECTRICAL PERMIT"]
     # philly_stripped["location"] = f"({philly_stripped['lat']}, {philly_stripped['lng']})"
     # philly_stripped = philly_stripped[["permitnumber", "permittype", "permitissuedate", "location", "contractorname"]]
@@ -76,10 +76,10 @@ def philly():
     philly_stripped = philly_stripped.dropna(subset=["contractorname"])
     philly_stripped["permitissuedate"] = philly_stripped["permitissuedate"].apply(lambda x: x.split(" ")[0])
 
-    # second dataframe
-    philly_val_raw = pd.read_csv("./raw_data/philly_two.csv")
-    philly_val_stripped = philly_val_raw[["market_value", "lat", "lng"]]
-    philly_stripped = pd.merge(philly_stripped, philly_val_stripped, on='lat, lng')
+    # concat the market_value column to the philly_stripped dataframe from the second philly csv using lat lng as a shared key
+    philly_raw2 = pd.read_csv("./raw_data/philly_valuation.csv")
+    philly_raw2 = philly_raw2[["lat", "lng", "market_value"]]
+    philly_stripped = pd.merge(philly_stripped, philly_raw2, on=["lat", "lng"], how="left")
     philly_stripped.to_csv("./stripped_data/philly.csv")
     logging.info("Saved philly.csv")
     return philly_stripped
