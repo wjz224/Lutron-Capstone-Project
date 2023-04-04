@@ -24,6 +24,9 @@ class CombineTest(unittest.TestCase):
         combined_data_expected = pd.read_csv("./combined_data_true/combinedData.csv")
         # compare our combined_data_test dataframe with our expected combined_data dataframe
         pd.testing.assert_frame_equal(combined_data_test,combined_data_expected)
+        # remove combinedData that was created
+        os.remove("./combined_data/combinedData.csv")
+
         pass
     
 if __name__ == "__main__":
