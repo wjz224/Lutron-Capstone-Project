@@ -10,8 +10,8 @@ META_CITY = {"new_york":("socrata", "data.cityofnewyork.us", "dm9a-ab7w", "job_s
             "mesa": ("socrata", "data.mesaaz.gov", "2gkz-7z4f", "issued_date"),
             "la": ("socrata", "data.lacity.org", "nbyu-2ha9", "issue_date"),
             "austin": ("socrata", "data.austintexas.gov", "3syk-w9eu", "issue_date"),
-            "philly_one": ("non_socrata", "https://phl.carto.com/api/v2/sql?filename=permits&format=csv&skipfields=cartodb_id,the_geom,the_geom_webmercator&q=SELECT%20*,%20ST_Y(the_geom)%20AS%20lat,%20ST_X(the_geom)%20AS%20lng%20FROM%20permits%20WHERE%20permitissuedate%20%3E=%20%272016-01-01%27"),
-            "philly_two": ("non_socrata", "https://opendata-downloads.s3.amazonaws.com/opa_properties_public.csv")}
+            "philly": ("non_socrata", "https://phl.carto.com/api/v2/sql?filename=permits&format=csv&skipfields=cartodb_id,the_geom,the_geom_webmercator&q=SELECT%20*,%20ST_Y(the_geom)%20AS%20lat,%20ST_X(the_geom)%20AS%20lng%20FROM%20permits%20WHERE%20permitissuedate%20%3E=%20%272016-01-01%27"),
+            "philly_valuation": ("non_socrata", "https://phl.carto.com/api/v2/sql?q=SELECT * FROM opa_properties_public")}
 # Number of times the script will try to get data from a Socrata API
 SOCRATA_TRIES = 3
 # Max number of rows to call
