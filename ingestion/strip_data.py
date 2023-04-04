@@ -2,6 +2,7 @@
 
 import pandas as pd
 import logging
+import sys
 
 def austin():
     """
@@ -10,7 +11,7 @@ def austin():
     """
     austin_raw = pd.read_csv("./raw_data/austin.csv")
     austin_stripped = austin_raw[austin_raw.contractor_trade == "Electrical Contractor"]
-    austin_stripped = austin_raw[["issue_date", "location", "contractor_company_name"]]
+    austin_stripped = austin_stripped[["issue_date", "location", "contractor_company_name"]]
     latitude = []
     longitude = []
     for i in range(len(austin_stripped) - 1):
@@ -40,7 +41,10 @@ def new_york():
     new_york_raw = pd.read_csv("./raw_data/new_york.csv")
     new_york_stripped = new_york_raw[["job_start_date","firm_name", 'gis_latitude', 'gis_longitude']]
     new_york_stripped = new_york_stripped.dropna(subset=["firm_name"])
-    new_york_stripped["job_start_date"] = new_york_stripped["job_start_date"].apply(lambda x: x.split("T")[0])
+    if type(new_york_stripped["job_start_date"]) != str:
+        new_york_stripped["job_start_date"] = "nan"
+    else:
+        new_york_stripped["job_start_date"] = new_york_stripped["job_start_date"].apply(lambda x: x.split("T")[0])
     new_york_stripped.to_csv("./stripped_data/new_york.csv")
     logging.info("Saved new_york.csv")
     return new_york_stripped
@@ -133,4 +137,5 @@ def strip_dataframes(city_list):
     return data_list
 
 if __name__ == "__main__":
-    print(len(strip_dataframes(["austin"])))
+    logging.basicConfig(stream=sys.stdout)
+    logging.info(len(strip_dataframes(["austin"])))

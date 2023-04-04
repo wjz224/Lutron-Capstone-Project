@@ -1,1 +1,2 @@
-*.csv
+ingestion/**/*.csv
+__pycache__/

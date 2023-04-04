@@ -24,6 +24,16 @@ if [ "$1" = "--ingest" ]; then
         python combine_data.py
     fi
     cd ..
+elif [ "$1" = "--test" ]; then
+    cd ./unittests
+    if [ "$2" = "strip" ]; then
+        cd ./test_strip
+        python test_strip.py
+        cd ..
+    elif [ "$2" = "combine" ]; then
+        python test_combine.py
+    fi
+    cd ..
 elif [ "$1" = "--install" ]; then
     pip install -r requirements.txt
 elif [ "$1" = "--reqs" ]; then
