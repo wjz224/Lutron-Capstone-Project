@@ -6,6 +6,7 @@ def combine_data():
     Combines .csv files in the directory "stripped_data" into a single file called "combinedData" store in the directory "combined_data"
     Each .csv file from the directory "stripped_data" will have an added column named "city" that is filled with the name of their respective city
 
+    Function must be be ran while in the "ingestion" directory to find the "stripped_data" and "combined_data directories".
     no parameters
     """
     # list constants that hold the identified similar names
