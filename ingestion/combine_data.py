@@ -41,8 +41,9 @@ def combine_data():
             combined_df = pd.concat(combine)
             
     # create csv with the dataframe with the combined data and store it in the combined_data folder
-    combined_df.to_csv('../combined_data/combinedData.csv')\
-
+    combined_df.to_csv('../combined_data/combinedData.csv')
+    # change back to previous directory so it doesnt change directory after this wrapper function finishes
+    os.chdir("..")
 # main method combine_data()
 def main():
     combine_data()
