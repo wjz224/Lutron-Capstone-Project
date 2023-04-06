@@ -26,7 +26,6 @@ class CombineTest(unittest.TestCase):
         pd.testing.assert_frame_equal(combined_data_test,combined_data_expected)
         # remove combinedData that was created
         os.remove("./combined_data/combinedData.csv")
-
         pass
     
 if __name__ == "__main__":
