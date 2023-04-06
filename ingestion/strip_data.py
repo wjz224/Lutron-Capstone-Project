@@ -4,7 +4,7 @@ import pandas as pd
 import logging
 import sys
 
-def austin():
+def austin() -> pd.DataFrame:
     """
     Extracts needed columns from the Austin data and saves it as a csv file
     :return austin_stripped: the stripped data as a pandas dataframe
@@ -33,7 +33,7 @@ def austin():
     logging.info("Saved austin.csv")
     return austin_stripped
 
-def new_york():
+def new_york() -> pd.DataFrame:
     """
     Extracts needed columns from the New York data and saves it as a csv file
     :return new_york_stripped: the stripped data as a pandas dataframe
@@ -49,7 +49,7 @@ def new_york():
     logging.info("Saved new_york.csv")
     return new_york_stripped
 
-def chicago():
+def chicago() -> pd.DataFrame:
     """
     Extracts needed columns from the Chicago data and saves it as a csv file
     :return: chicago_stripped: the stripped data as a pandas dataframe
@@ -63,7 +63,7 @@ def chicago():
     logging.info("Saved chicago.csv")
     return chicago_stripped
 
-def philly():
+def philly()-> pd.DataFrame:
     """
     Extracts needed columns from the Philadelphia data and saves it as a csv file
     :return: philly_stripped: the stripped data as a pandas dataframe
@@ -84,7 +84,7 @@ def philly():
     logging.info("Saved philly.csv")
     return philly_stripped
 
-def mesa():
+def mesa()-> pd.DataFrame:
     """
     Extracts needed columns from the Mesa data and saves it as a csv file
     Can't filter by contractor trade
@@ -98,7 +98,7 @@ def mesa():
     logging.info("Saved mesa.csv")
     return mesa_stripped
 
-def la():
+def la()-> pd.DataFrame:
     """
     Extracts needed columns from the Los Angeles data and saves it as a csv file
     :return: la_stripped: the stripped data as a pandas dataframe
@@ -127,7 +127,7 @@ def la():
     logging.info("Saved la.csv")
     return la_stripped
 
-def strip_dataframes(city_list):
+def strip_dataframes(city_list) -> list:
     """
     Strips the specified dataframes and saves them as csv files
     :param city_list: a list of the cities to strip

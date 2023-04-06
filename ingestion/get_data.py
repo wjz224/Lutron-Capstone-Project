@@ -17,10 +17,11 @@ SOCRATA_TRIES = 3
 # Max number of rows to call
 ROW_LIMIT = 5
 
-def get_data(url, location):
+def get_data(url, location) -> None:
     """
     Pulls data from a Non-Socrata source and saves it as a csv file
     :param url: the url of the api
+    :param location: the name of the location
     :return: None
     """
     # Use Pandas to read the CSV file from the URL
@@ -30,11 +31,13 @@ def get_data(url, location):
     logging.info(f"Saved {location}.csv")
 
 
-def get_socrata_data(url, dataset_id, location, date_column):
+def get_socrata_data(url, dataset_id, location, date_column) -> None:
     """
     Pulls data from a Socrata API and saves it as a csv file
     :param url: the url of the api
     :param dataset_id: the id of the dataset
+    :param location: the name of the location
+    :param date_column: the name of the date column
     """
     client = Socrata(url, None)
     # check if the dataset exists in raw_data
@@ -51,7 +54,7 @@ def get_socrata_data(url, dataset_id, location, date_column):
     logging.info(f"Saved {location}.csv")
 
 
-def main():
+def main() -> None:
     locations = ["new_york"]
     for place in locations:
         meta = META_CITY[place]
