@@ -8,19 +8,27 @@ import sys
 sys.path.insert(1, "../../ingestion")
 from strip_data import strip_dataframes
 
-class GetDataTest(unittest.TestCase):
+class StripDataTest(unittest.TestCase):
+    """
+    This class contains the unit tests for the strip_data.py script.
+    """
+
+    @classmethod
+    def setUpClass(self) -> None:
+        super().setUpClass()
+        self.log = logging.getLogger("test")
+
     def test_austin(self, location="austin"):
         """
         Tests the stripping function for Austin and compares the output to the true output. This function is reused for the tests for the other cities
         """
-        log = logging.getLogger("test")
-        log.debug(f"Testing {location}")
+        self.log.debug(f"Testing {location}")
         data = strip_dataframes([location])
         self.assertIsInstance(data, list)
         self.assertIsInstance(data[0], pd.DataFrame)
         true = pd.read_csv(f"./stripped_data_true/{location}_true.csv")
         new = pd.read_csv(f"./stripped_data/{location}.csv")
-        self.assertTrue(true.equals(new))
+        pd.testing.assert_frame_equal(true, new)
         os.remove(f"./stripped_data/{location}.csv")
 
     def test_new_york(self):
@@ -46,7 +54,7 @@ class GetDataTest(unittest.TestCase):
         Tests the stripping function for Los Angeles.
         """
         self.test_austin("la")
-        
+
     def test_philly(self):
         """
         Tests the stripping function for Philadelphia.
