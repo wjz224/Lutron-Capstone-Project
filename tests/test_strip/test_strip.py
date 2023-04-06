@@ -14,7 +14,7 @@ class StripDataTest(unittest.TestCase):
     """
 
     @classmethod
-    def setUpClass(self, cls) -> None:
+    def setUpClass(self) -> None:
         super().setUpClass()
         self.log = logging.getLogger("test")
 
