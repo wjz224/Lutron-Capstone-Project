@@ -62,16 +62,13 @@ def main() -> None:
         meta = META_CITY[place]
         if meta[0] == "socrata":
             fail_count = 0
-            while 1:
+            while fail_count <= SOCRATA_TRIES:
                 try:
                     get_socrata_data(meta[1], meta[2], place, meta[3])
                     break
                 except Exception as e:
                     logging.error(e)
                     fail_count += 1
-                    if fail_count == SOCRATA_TRIES:
-                        logging.error(f"Failed to get data from {place} after {fail_count} tries.")
-                        break
                     pass
         elif meta[0] == "non_socrata":
             try:
