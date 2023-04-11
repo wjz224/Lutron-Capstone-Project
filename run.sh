@@ -25,7 +25,7 @@ if [ "$1" = "--ingest" ]; then
     fi
     cd ..
 elif [ "$1" = "--test" ]; then
-    cd ./unittests
+    cd ./tests
     if [ "$2" = "strip" ]; then
         cd ./test_strip
         python test_strip.py

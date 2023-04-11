@@ -14,20 +14,9 @@ def austin() -> pd.DataFrame:
     austin_raw = pd.read_csv(AUSTIN_RAW_PATH)
     austin_stripped = austin_raw[austin_raw.contractor_trade == "Electrical Contractor"]
     austin_stripped = austin_stripped[["issue_date", "location", "contractor_company_name"]]
-    latitude = []
-    longitude = []
-    for i in range(len(austin_stripped) - 1):
-        # {'latitude': '30.29406429', 'longitude': '-97.69323996', 'human_address': '{""address"": """", ""city"": """", ""state"": """", ""zip"": """"}'}
-        location_object = austin_stripped["location"][i]
-        if type(location_object) != str:
-            latitude.append("nan")
-            longitude.append("nan")
-            continue
-        latitude_temp, longitude_temp = location_object.split(",")[:2]
-        latitude.append(latitude_temp.split("'")[3])
-        longitude.append(longitude_temp.split("'")[3])
-    austin_stripped["latitude"] = pd.Series(latitude)
-    austin_stripped["longitude"] = pd.Series(longitude)
+    # {'latitude': '30.29406429', 'longitude': '-97.69323996', 'human_address': '{""address"": """", ""city"": """", ""state"": """", ""zip"": """"}'}
+    austin_stripped["latitude"] = austin_stripped["location"].apply(lambda x: x.split(",")[0].split("'")[3] if type(x) == str else "nan")
+    austin_stripped["longitude"] = austin_stripped["location"].apply(lambda x: x.split(",")[1].split("'")[3] if type(x) == str else "nan")
     austin_stripped = austin_stripped.dropna(subset=["contractor_company_name"])
     austin_stripped.drop(columns=["location"], inplace=True)
     austin_stripped["issue_date"] = austin_stripped["issue_date"].apply(lambda x: x.split("T")[0])
@@ -115,20 +104,9 @@ def la()-> pd.DataFrame:
     LA_STRIPPED_PATH = "./stripped_data/la.csv"
     la_raw = pd.read_csv(LA_RAW_PATH)
     la_stripped = la_raw[["issue_date", "contractors_business_name", "location_1", "permit_type"]]
-    latitude = []
-    longitude = []
-    for i in range(len(la_stripped) - 1):
-        # {'latitude': '33.99393', 'human_address': '{"address": "", "city": "", "state": "", "zip": ""}', 'needs_recoding': False, 'longitude': '-118.33429'}
-        location_object = la_stripped["location_1"][i]
-        if type(location_object) != str:
-            latitude.append("nan")
-            longitude.append("nan")
-            continue
-        location_object = location_object.split("'")
-        latitude.append(location_object[3])
-        longitude.append(location_object[13])
-    la_stripped["latitude"] = pd.Series(latitude)
-    la_stripped["longitude"] = pd.Series(longitude)
+    # {'latitude': '33.99393', 'human_address': '{"address": "", "city": "", "state": "", "zip": ""}', 'needs_recoding': False, 'longitude': '-118.33429'}
+    la_stripped["latitude"] = la_stripped["location_1"].apply(lambda x: x.split("'")[3] if type(x) == str else "nan")
+    la_stripped["longitude"] = la_stripped["location_1"].apply(lambda x: x.split("'")[13] if type(x) == str else "nan")
     la_stripped = la_stripped[la_stripped.permit_type == "Electrical"]
     la_stripped.drop(columns=["location_1", "permit_type"], inplace=True)
     la_stripped = la_stripped.dropna(subset=["contractors_business_name"])
