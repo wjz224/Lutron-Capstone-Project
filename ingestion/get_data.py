@@ -68,6 +68,7 @@ def main() -> None:
                     break
                 except Exception as e:
                     logging.error(e)
+                    logging.error(f"Failed to get data from {place} on try {fail_count}, will try {SOCRATA_TRIES - fail_count} more times")
                     fail_count += 1
                     pass
         elif meta[0] == "non_socrata":
