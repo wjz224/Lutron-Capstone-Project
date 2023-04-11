@@ -78,8 +78,6 @@ def philly()-> pd.DataFrame:
     PHILLY_STRIPPED_PATH = "./stripped_data/philly.csv"
     philly_raw = pd.read_csv(PHILLY_RAW_PATH)
     philly_stripped = philly_raw[philly_raw.permitdescription == "ELECTRICAL PERMIT"]
-    # philly_stripped["location"] = f"({philly_stripped['lat']}, {philly_stripped['lng']})"
-    # philly_stripped = philly_stripped[["permitnumber", "permittype", "permitissuedate", "location", "contractorname"]]
     philly_stripped = philly_stripped[["permitissuedate", "contractorname", "lat", "lng"]]
     philly_stripped = philly_stripped.dropna(subset=["contractorname"])
     philly_stripped["permitissuedate"] = philly_stripped["permitissuedate"].apply(lambda x: x.split(" ")[0])
