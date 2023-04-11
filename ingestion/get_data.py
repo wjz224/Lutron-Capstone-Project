@@ -1,3 +1,5 @@
+"""This script pulls data from ether Socrata or directly from a CSV file and saves it as a CSV file."""
+
 import logging
 import pandas as pd
 from sodapy import Socrata
