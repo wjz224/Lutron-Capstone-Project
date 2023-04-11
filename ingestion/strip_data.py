@@ -34,10 +34,7 @@ def new_york() -> pd.DataFrame:
     new_york_raw = pd.read_csv(NEW_YORK_RAW_PATH)
     new_york_stripped = new_york_raw[["job_start_date","firm_name", 'gis_latitude', 'gis_longitude']]
     new_york_stripped = new_york_stripped.dropna(subset=["firm_name"])
-    if type(new_york_stripped["job_start_date"]) != str:
-        new_york_stripped["job_start_date"] = "nan"
-    else:
-        new_york_stripped["job_start_date"] = new_york_stripped["job_start_date"].apply(lambda x: x.split("T")[0])
+    new_york_stripped["job_start_date"] = new_york_stripped["job_start_date"].apply(lambda x: x.split("T")[0] if type(x) == str else "nan")
     new_york_stripped.to_csv(NEW_YORK_STRIPPED_PATH)
     logging.info("Saved new_york.csv")
     return new_york_stripped
