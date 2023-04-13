@@ -117,10 +117,10 @@ def strip_dataframes(city_list) -> list:
     Strips the specified dataframes and saves them as csv files
     :param city_list: a list of the cities to strip
     """
-    city_functions = [globals()[x] for x in city_list if x in globals() and callable(globals()[x])]
-    data_list = [city() for city in city_functions]
+    CITY_FUNCTIONS = {"austin": austin, "new_york": new_york, "chicago": chicago, "philly": philly, "mesa": mesa, "la": la}
+    data_list = [CITY_FUNCTIONS[city]() for city in city_list]
     return data_list
 
 if __name__ == "__main__":
     logging.basicConfig(stream=sys.stdout)
-    logging.info(len(strip_dataframes(["austin", "new_york", "chicago", "philly", "mesa", "la"])))
+    logging.info(len(strip_dataframes([ "la"])))
