@@ -50,10 +50,6 @@ def combine_data():
     combined_df.to_csv("../combined_data/combinedData.csv")
     # change back to previous directory so it doesnt change directory after this wrapper function finishes
     os.chdir("..")
-# main method combine_data()
-def main():
-    combine_data()
 
-# call main
 if __name__ == "__main__":
-    main()
+    combine_data()
