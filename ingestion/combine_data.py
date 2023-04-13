@@ -1,4 +1,4 @@
-import pandas as pd 
+import pandas as pd
 import os
 
 def combine_data():
@@ -38,7 +38,7 @@ def combine_data():
                 # go through each src_column name and check if the src_column name is in the city"s columns.
                 for src_column in src_columns:
                     # if the src_column is found, than copy over the city"s src_column to the standardized_df dataframe"s dst_column
-                    if(src_column in city.columns):
+                    if src_column in city.columns:
                         # copy over the city"s src_column to the standardized_df dataframe"s dst_column
                         standardized_df[dst_column] = pd.Series(city[src_column])
             # set the dataframe for the current city"s "city" column to the city_name which is the file"s name.
@@ -47,7 +47,7 @@ def combine_data():
             combine = [combined_df, standardized_df]
             # concat the city data frame and the current combined data frame
             combined_df = pd.concat(combine)
-            
+
     # create csv with the dataframe with the combined data and store it in the combined_data folder
     combined_df.to_csv("../combined_data/combinedData.csv")
     # change back to previous directory so it doesnt change directory after this wrapper function finishes
@@ -55,7 +55,7 @@ def combine_data():
 # main method combine_data()
 def main():
     combine_data()
-    
+
 # call main
 if __name__ == "__main__":
-    main()       
+    main()
