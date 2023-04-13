@@ -28,6 +28,9 @@ elif [ "$1" = "--test" ]; then
     cd ./tests
     if [ "$2" = "strip" ]; then
         cd ./test_strip
+        if [ ! -d "stripped_data" ]; then
+            mkdir stripped_data
+        fi
         python test_strip.py
         cd ..
     elif [ "$2" = "combine" ]; then
