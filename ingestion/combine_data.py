@@ -43,10 +43,8 @@ def combine_data():
                         standardized_df[dst_column] = pd.Series(city[src_column])
             # set the dataframe for the current city"s "city" column to the city_name which is the file"s name.
             standardized_df["city"] = city_name
-            # list to hold the city and the combined data frame for concat
-            combine = [combined_df, standardized_df]
             # concat the city data frame and the current combined data frame
-            combined_df = pd.concat(combine)
+            combined_df = pd.concat([combined_df, standardized_df])
 
     # create csv with the dataframe with the combined data and store it in the combined_data folder
     combined_df.to_csv("../combined_data/combinedData.csv")
