@@ -1,6 +1,6 @@
 # Lutron Permit Capstone
 
-### Run Ingestion Scripts
+## Run Ingestion Scripts
 - Run all scripts: `./run.sh --ingest`
 - Run a specific script: `./run.sh --ingest <get/strip/combine>`
 

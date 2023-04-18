@@ -47,9 +47,13 @@ def chicago() -> pd.DataFrame:
     CHICAGO_RAW_PATH = "./raw_data/chicago.csv"
     CHICAGO_STRIPPED_PATH = "./stripped_data/chicago.csv"
     chicago_raw = pd.read_csv(CHICAGO_RAW_PATH)
-    chicago_stripped = chicago_raw[chicago_raw.contact_1_type == "CONTRACTOR-ELECTRICAL"]
-    chicago_stripped = chicago_stripped[["issue_date", "contact_1_name", "latitude", "longitude"]]
-    chicago_stripped = chicago_stripped.dropna(subset=["contact_1_name"])
+    contractor_names = chicago_raw.filter(regex="contact_\d*_name")
+    contractor_trade = chicago_raw.filter(regex="contact_\d*_type")
+    contractor_trade.columns = contractor_names.columns
+    electrical_contractors = contractor_names[contractor_trade.eq("CONTRACTOR-ELECTRICAL")]
+    chicago_raw["electrical_contractors"] = electrical_contractors.apply(lambda x: tuple(x.dropna()), axis=1)
+    chicago_stripped = chicago_raw[["issue_date", "electrical_contractors", "latitude", "longitude"]]
+    chicago_stripped = chicago_stripped[chicago_stripped.electrical_contractors.apply(lambda x: len(x) > 0)]
     chicago_stripped["issue_date"] = chicago_stripped["issue_date"].apply(lambda x: x.split("T")[0])
     chicago_stripped.to_csv(CHICAGO_STRIPPED_PATH)
     logging.info("Saved chicago.csv")
