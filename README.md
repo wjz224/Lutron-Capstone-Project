@@ -18,6 +18,6 @@
 ### Contributors ###
 
 * Kunj S.
-* Ayon B
+* Ayon B.
 * Bharath J.
 * Wilson Z.

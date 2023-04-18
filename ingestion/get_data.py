@@ -39,7 +39,7 @@ def get_data(url, location, date_column) -> None:
         most_recent_date = df_original[date_column][0]
         df = df[df[date_column] > most_recent_date]
         df = df.append(df_original)
-        
+
     df.to_csv(f"./raw_data/{location}.csv", index=False)
     logging.info(f"Saved {location}.csv")
 
@@ -58,7 +58,9 @@ def get_socrata_data(url, dataset_id, location, date_column) -> None:
         df = pd.read_csv(f"./raw_data/{location}.csv")
         most_recent_date = df[date_column][0]
         results = client.get(dataset_id, where=f"{date_column}>'{most_recent_date}'", order=f"{date_column} DESC", limit=ROW_LIMIT)
-        df = pd.DataFrame.from_dict(results).append(df)
+        if len(results) == 0:
+            return
+        df = pd.DataFrame.from_dict(results).concat(df, axis=0, join="outer")
     else:
         results = client.get(dataset_id, order=f"{date_column} DESC", limit=ROW_LIMIT)
         df = pd.DataFrame.from_dict(results)
@@ -68,7 +70,7 @@ def get_socrata_data(url, dataset_id, location, date_column) -> None:
 
 
 def main() -> None:
-    locations = ["philly", "philly_valuation"]
+    locations = ["philly", "philly_valuation", "new_york", "chicago", "mesa", "la", "austin"]
     for place in locations:
         meta = META_CITY[place]
         if meta[0] == "socrata":
