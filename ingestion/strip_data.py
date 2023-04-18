@@ -123,4 +123,4 @@ def strip_dataframes(city_list) -> list:
 
 if __name__ == "__main__":
     logging.basicConfig(stream=sys.stdout)
-    logging.info(len(strip_dataframes([ "la"])))
+    logging.info(len(strip_dataframes(["la", "mesa", "chicago", "new_york", "austin", "philly"])))
