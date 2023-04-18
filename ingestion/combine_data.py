@@ -12,7 +12,7 @@ def combine_data():
     # list constants that hold the identified similar names
     column_map = {
         "issued_date" : {"issue_date", "job_start_date", "issued_date", "permitissuedate"},
-        "contractor" : {"contractor_company_name", "contact_1_name","firm_name", "contractor_name", "contractorname"},
+        "contractor" : {"contractor_company_name", "electrical_contractors","firm_name", "contractor_name", "contractorname"},
         "latitude" : {"latitude","gis_latitude", "lat"},
         "longitude" : {"longitude","gis_longitude", "lng"}
     }
