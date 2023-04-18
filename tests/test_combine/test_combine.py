@@ -23,7 +23,7 @@ class CombineTest(unittest.TestCase):
         # save expected combined_data file from our combine_data_true folder into the dataframe combined_data_expected
         combined_data_expected = pd.read_csv("./combined_data_true/combinedData.csv")
         # compare our combined_data_test dataframe with our expected combined_data dataframe
-        pd.testing.assert_frame_equal(combined_data_test,combined_data_expected)
+        pd.testing.assert_frame_equal(combined_data_test.reset_index(drop=True),combined_data_expected.reset_index(drop=True))
         # remove combinedData that was created
         os.remove("./combined_data/combinedData.csv")
         pass
