@@ -17,7 +17,7 @@ META_CITY = {"new_york":("socrata", "data.cityofnewyork.us", "dm9a-ab7w", "job_s
 # Number of times the script will try to get data from a Socrata API
 SOCRATA_TRIES = 3
 # Max number of rows to call for the Socrata API for testing
-ROW_LIMIT = 1_000_000_000
+ROW_LIMIT = 1_000#_000_000
 
 def get_data(url, location, date_column) -> None:
     """
@@ -60,22 +60,24 @@ def get_socrata_data(url, dataset_id, location, date_column) -> None:
         results = client.get(dataset_id, where=f"{date_column}>'{most_recent_date}'", order=f"{date_column} DESC", limit=ROW_LIMIT)
         if len(results) == 0:
             return
-        df = pd.DataFrame.from_dict(results).concat(df, axis=0, join="outer")
+        print(pd.DataFrame.from_dict(results))
+        df = pd.concat([pd.DataFrame.from_dict(results), df])
+        # df = pd.DataFrame.from_dict(results).concat(df, axis=0, join="outer")
     else:
         results = client.get(dataset_id, order=f"{date_column} DESC", limit=ROW_LIMIT)
         df = pd.DataFrame.from_dict(results)
     # Saves dataframe as a csv file
-    df.to_csv(f"./raw_data/{location}.csv")
+    df.to_csv(f"./raw_data/{location}.csv", index=False)
     logging.info(f"Saved {location}.csv")
 
 
 def main() -> None:
-    locations = ["philly", "philly_valuation", "new_york", "chicago", "mesa", "la", "austin"]
+    locations = ["new_york", "chicago", "mesa", "la", "austin"]
     for place in locations:
         meta = META_CITY[place]
         if meta[0] == "socrata":
             fail_count = 0
-            while fail_count <= SOCRATA_TRIES:
+            while fail_count < SOCRATA_TRIES:
                 try:
                     get_socrata_data(meta[1], meta[2], place, meta[3])
                     break
