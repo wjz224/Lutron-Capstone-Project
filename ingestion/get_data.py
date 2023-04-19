@@ -5,7 +5,6 @@ import pandas as pd
 from sodapy import Socrata
 import os
 import sys
-from dotenv import load_dotenv
 # Dictionary of cities and their corresponding API information
 META_CITY = {"new_york":("socrata", "data.cityofnewyork.us", "dm9a-ab7w", "job_start_date", "VMy8JkExlzdzLuhhl0hPPjLOe"),
             "chicago": ("socrata", "data.cityofchicago.org", "ydr8-5enu", "issue_date", "OeO911BbttwbWOl2CkPqg8MJP"),
@@ -52,9 +51,7 @@ def get_socrata_data(url, dataset_id, location, date_column, app_token) -> None:
     :param location: the name of the location
     :param date_column: the name of the date column
     """
-    # load .env file containing socrata account information
-    load_dotenv()
-    # load client 
+    # load client
     client = Socrata(url, app_token, username = os.getenv("email"), password = os.getenv("password"), timeout = 10)
     # check if the dataset exists in raw_data
     if f"{location}.csv" in os.listdir("./raw_data"):
