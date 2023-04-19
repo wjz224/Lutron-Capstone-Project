@@ -5,7 +5,7 @@ import pandas as pd
 from sodapy import Socrata
 import os
 import sys
-# Dictionary of cities and their corresponding API information
+    # Dictionary of cities and their corresponding API information
 META_CITY = {"new_york":("socrata", "data.cityofnewyork.us", "dm9a-ab7w", "job_start_date", "VMy8JkExlzdzLuhhl0hPPjLOe"),
             "chicago": ("socrata", "data.cityofchicago.org", "ydr8-5enu", "issue_date", "OeO911BbttwbWOl2CkPqg8MJP"),
             "mesa": ("socrata", "data.mesaaz.gov", "2gkz-7z4f", "issued_date", "ibJlwU98NuWQ0xQoN4IA9FvNU"),
@@ -56,13 +56,12 @@ def get_socrata_data(url, dataset_id, location, date_column, app_token) -> None:
     # check if the dataset exists in raw_data
     if f"{location}.csv" in os.listdir("./raw_data"):
         df = pd.read_csv(f"./raw_data/{location}.csv")
-        most_recent_date = df[date_column][0]
+        most_recent_date = df[date_column].first_valid_index()
         results = client.get(dataset_id, where=f"{date_column}>'{most_recent_date}'", order=f"{date_column} DESC", limit=ROW_LIMIT)
         if len(results) == 0:
             return
         print(pd.DataFrame.from_dict(results))
         df = pd.concat([pd.DataFrame.from_dict(results), df])
-        # df = pd.DataFrame.from_dict(results).concat(df, axis=0, join="outer")
     else:
         results = client.get(dataset_id, order=f"{date_column} DESC", limit=ROW_LIMIT)
         df = pd.DataFrame.from_dict(results)
@@ -72,7 +71,7 @@ def get_socrata_data(url, dataset_id, location, date_column, app_token) -> None:
 
 
 def main() -> None:
-    locations = ["new_york", "chicago", "mesa", "la", "austin"]
+    locations = ["new_york"]
     for place in locations:
         meta = META_CITY[place]
         if meta[0] == "socrata":
