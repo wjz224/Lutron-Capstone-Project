@@ -28,7 +28,7 @@ def austin() -> pd.DataFrame:
     # split issue_date to only include date
     austin_stripped["issue_date"] = austin_stripped["issue_date"].apply(lambda x: x.split("T")[0])
     austin_stripped.to_csv(AUSTIN_STRIPED_PATH)
-    logging.info("Saved austin.csv")
+    logger.info("Saved austin.csv")
     return austin_stripped
 
 def new_york() -> pd.DataFrame:
@@ -47,7 +47,7 @@ def new_york() -> pd.DataFrame:
     # split issue_date to only include date
     new_york_stripped["job_start_date"] = new_york_stripped["job_start_date"].apply(lambda x: x.split("T")[0] if type(x) == str else nan)
     new_york_stripped.to_csv(NEW_YORK_STRIPPED_PATH)
-    logging.info("Saved new_york.csv")
+    logger.info("Saved new_york.csv")
     return new_york_stripped
 
 def chicago() -> pd.DataFrame:
@@ -73,7 +73,7 @@ def chicago() -> pd.DataFrame:
     # split issue_date to only include date
     chicago_stripped["issue_date"] = chicago_stripped["issue_date"].apply(lambda x: x.split("T")[0])
     chicago_stripped.to_csv(CHICAGO_STRIPPED_PATH)
-    logging.info("Saved chicago.csv")
+    logger.info("Saved chicago.csv")
     return chicago_stripped
 
 def philly()-> pd.DataFrame:
@@ -96,7 +96,7 @@ def philly()-> pd.DataFrame:
     philly_raw2.rename(columns={"location": "address"}, inplace=True)
     philly_stripped = pd.merge(philly_stripped, philly_raw2, on=["address"], how="left")
     philly_stripped.to_csv(PHILLY_STRIPPED_PATH)
-    logging.info("Saved philly.csv")
+    logger.info("Saved philly.csv")
     return philly_stripped
 
 def mesa()-> pd.DataFrame:
@@ -116,7 +116,7 @@ def mesa()-> pd.DataFrame:
     # split issue_date to only include date
     mesa_stripped["issued_date"] = mesa_stripped["issued_date"].apply(lambda x: x.split("T")[0])
     mesa_stripped.to_csv(MESA_STRIPPED_PATH)
-    logging.info("Saved mesa.csv")
+    logger.info("Saved mesa.csv")
     return mesa_stripped
 
 def la()-> pd.DataFrame:
@@ -142,7 +142,7 @@ def la()-> pd.DataFrame:
     # split issue_date to only include date
     la_stripped["issue_date"] = la_stripped["issue_date"].apply(lambda x: x.split("T")[0])
     la_stripped.to_csv(LA_STRIPPED_PATH)
-    logging.info("Saved la.csv")
+    logger.info("Saved la.csv")
     return la_stripped
 
 def strip_dataframes(city_list) -> list:
@@ -156,5 +156,6 @@ def strip_dataframes(city_list) -> list:
 
 if __name__ == "__main__":
     logging.basicConfig(stream=sys.stdout)
-    logging.info(len(strip_dataframes(["la", "mesa", "chicago", "new_york", "austin", "philly"])))
-    #logging.info(len(strip_dataframes(["philly"])))
+    logger = logging.getLogger("get_data")
+    logger.setLevel(logging.INFO)
+    logger.info(len(strip_dataframes(["la", "mesa", "chicago", "new_york", "austin", "philly"])))
