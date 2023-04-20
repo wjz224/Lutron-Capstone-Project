@@ -3,6 +3,7 @@
 import pandas as pd
 import logging
 import sys
+from numpy import nan
 
 def austin() -> pd.DataFrame:
     """
@@ -19,8 +20,8 @@ def austin() -> pd.DataFrame:
     austin_stripped = austin_stripped[["issue_date", "location", "contractor_company_name"]]
     # extract latitude and longitude from location column
     # {'latitude': '30.29406429', 'longitude': '-97.69323996', 'human_address': '{""address"": """", ""city"": """", ""state"": """", ""zip"": """"}'}
-    austin_stripped["latitude"] = austin_stripped["location"].apply(lambda x: x.split(",")[0].split("'")[3] if type(x) == str else "nan")
-    austin_stripped["longitude"] = austin_stripped["location"].apply(lambda x: x.split(",")[1].split("'")[3] if type(x) == str else "nan")
+    austin_stripped["latitude"] = austin_stripped["location"].apply(lambda x: x.split(",")[0].split("'")[3] if type(x) == str else nan)
+    austin_stripped["longitude"] = austin_stripped["location"].apply(lambda x: x.split(",")[1].split("'")[3] if type(x) == str else nan)
     # drop rows with missing contractor_company_name
     austin_stripped = austin_stripped.dropna(subset=["contractor_company_name"])
     austin_stripped.drop(columns=["location"], inplace=True)
@@ -44,7 +45,7 @@ def new_york() -> pd.DataFrame:
     # drop rows with missing firm_name
     new_york_stripped = new_york_stripped.dropna(subset=["firm_name"])
     # split issue_date to only include date
-    new_york_stripped["job_start_date"] = new_york_stripped["job_start_date"].apply(lambda x: x.split("T")[0] if type(x) == str else "nan")
+    new_york_stripped["job_start_date"] = new_york_stripped["job_start_date"].apply(lambda x: x.split("T")[0] if type(x) == str else nan)
     new_york_stripped.to_csv(NEW_YORK_STRIPPED_PATH)
     logging.info("Saved new_york.csv")
     return new_york_stripped
@@ -131,8 +132,8 @@ def la()-> pd.DataFrame:
     la_stripped = la_raw[["issue_date", "contractors_business_name", "location_1", "permit_type"]]
     # extract latitude and longitude from location_1
     # {'latitude': '33.99393', 'human_address': '{"address": "", "city": "", "state": "", "zip": ""}', 'needs_recoding': False, 'longitude': '-118.33429'}
-    la_stripped["latitude"] = la_stripped["location_1"].apply(lambda x: x.split("'")[3] if type(x) == str else "nan")
-    la_stripped["longitude"] = la_stripped["location_1"].apply(lambda x: x.split("'")[13] if type(x) == str else "nan")
+    la_stripped["latitude"] = la_stripped["location_1"].apply(lambda x: x.split("'")[3] if type(x) == str else nan)
+    la_stripped["longitude"] = la_stripped["location_1"].apply(lambda x: x.split("'")[13] if type(x) == str else nan)
     # drop rows without electrical contractors
     la_stripped = la_stripped[la_stripped.permit_type == "Electrical"]
     la_stripped.drop(columns=["location_1", "permit_type"], inplace=True)
@@ -150,7 +151,6 @@ def strip_dataframes(city_list) -> list:
     :param city_list: a list of the cities to strip
     """
     CITY_FUNCTIONS = {"austin": austin, "new_york": new_york, "chicago": chicago, "philly": philly, "mesa": mesa, "la": la}
-    #CITY_FUNCTIONS = {"philly": philly}
     data_list = [CITY_FUNCTIONS[city]() for city in city_list]
     return data_list
 

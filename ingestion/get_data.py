@@ -41,7 +41,7 @@ def get_data(url, location, date_column) -> None:
         df = df.append(df_original)
 
     df.to_csv(f"./raw_data/{location}.csv", index=False)
-    logging.info(f"Saved {location}.csv")
+    logger.info(f"Saved {location}.csv")
 
 
 def get_socrata_data(url, dataset_id, location, date_column, app_token) -> None:
@@ -61,18 +61,17 @@ def get_socrata_data(url, dataset_id, location, date_column, app_token) -> None:
         results = client.get(dataset_id, where=f"{date_column}>'{most_recent_date}'", order=f"{date_column} DESC", limit=ROW_LIMIT)
         if len(results) == 0:
             return
-        print(pd.DataFrame.from_dict(results))
         df = pd.concat([pd.DataFrame.from_dict(results), df])
     else:
         results = client.get(dataset_id, order=f"{date_column} DESC", limit=ROW_LIMIT)
         df = pd.DataFrame.from_dict(results)
     # Saves dataframe as a csv file
     df.to_csv(f"./raw_data/{location}.csv", index=False)
-    logging.info(f"Saved {location}.csv")
+    logger.info(f"Saved {location}.csv")
 
 
 def main() -> None:
-    locations = ["philly", "philly_valuation"]
+    locations = ["new_york", "chicago", "mesa", "la", "austin", "philly", "philly_valuation"]
     for place in locations:
         meta = META_CITY[place]
         if meta[0] == "socrata":
@@ -82,17 +81,18 @@ def main() -> None:
                     get_socrata_data(meta[1], meta[2], place, meta[3], meta[4])
                     break
                 except Exception as e:
-                    logging.error(e)
-                    logging.error(f"Failed to get data from {place} on try {fail_count}, will try {SOCRATA_TRIES - fail_count} more times")
+                    logger.error(e)
+                    logger.error(f"Failed to get data from {place} on try {fail_count}, will try {SOCRATA_TRIES - fail_count} more times")
                     fail_count += 1
-                    pass
         elif meta[0] == "non_socrata":
             try:
                 get_data(meta[1], place, meta[2])
             except Exception as e:
-                logging.error(e)
+                logger.error(e)
 
 
 if __name__ == "__main__":
     logging.basicConfig(stream=sys.stdout)
+    logger = logging.getLogger("get_data")
+    logger.setLevel(logging.INFO)
     main()
