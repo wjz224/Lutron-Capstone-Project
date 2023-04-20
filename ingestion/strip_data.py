@@ -84,14 +84,16 @@ def philly()-> pd.DataFrame:
     PHILLY_STRIPPED_PATH = "./stripped_data/philly.csv"
     philly_raw = pd.read_csv(PHILLY_RAW_PATH)
     philly_stripped = philly_raw[philly_raw.permitdescription == "ELECTRICAL PERMIT"]
-    philly_stripped = philly_stripped[["permitissuedate", "contractorname", "lat", "lng"]]
+    philly_stripped = philly_stripped[["permitissuedate", "contractorname", "address", "lat", "lng"]]
     philly_stripped = philly_stripped.dropna(subset=["contractorname"])
     philly_stripped["permitissuedate"] = philly_stripped["permitissuedate"].apply(lambda x: x.split(" ")[0])
 
     # concat the market_value column to the philly_stripped dataframe from the second philly csv using lat lng as a shared key
     philly_raw2 = pd.read_csv("./raw_data/philly_valuation.csv")
-    philly_raw2 = philly_raw2[["lat", "lng", "market_value"]]
-    philly_stripped = pd.merge(philly_stripped, philly_raw2, on=["lat", "lng"], how="left")
+    philly_raw2 = philly_raw2[["location", "market_value"]]
+    # rename the column location to address to match the other philly csv
+    philly_raw2.rename(columns={"location": "address"}, inplace=True)
+    philly_stripped = pd.merge(philly_stripped, philly_raw2, on=["address"], how="left")
     philly_stripped.to_csv(PHILLY_STRIPPED_PATH)
     logging.info("Saved philly.csv")
     return philly_stripped
@@ -148,9 +150,11 @@ def strip_dataframes(city_list) -> list:
     :param city_list: a list of the cities to strip
     """
     CITY_FUNCTIONS = {"austin": austin, "new_york": new_york, "chicago": chicago, "philly": philly, "mesa": mesa, "la": la}
+    #CITY_FUNCTIONS = {"philly": philly}
     data_list = [CITY_FUNCTIONS[city]() for city in city_list]
     return data_list
 
 if __name__ == "__main__":
     logging.basicConfig(stream=sys.stdout)
     logging.info(len(strip_dataframes(["la", "mesa", "chicago", "new_york", "austin", "philly"])))
+    #logging.info(len(strip_dataframes(["philly"])))
