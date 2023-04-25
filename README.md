@@ -1,18 +1,23 @@
-# README #
+# Lutron Permit Capstone
 
-This README documents whatever steps are necessary to get the data scripts running
+## Run Ingestion Scripts
+- Run all scripts: `./run.sh --ingest`
+- Run a specific script: `./run.sh --ingest <get/strip/combine>`
 
-### What is this repository for? ###
+## Run Unit Tests
+- Test strip script: `./run.sh --test strip`
+- Test combine script: `./run.sh --test combine`
 
-To run, open terminal and input: 
-- ‘make reqs’ saves the requirements 
-- ‘make install’ installs the requirements 
-- ‘make ingest’ runs the ingestion scripts
+## Dependencies
+- Install dependencies: `./run.sh --install`
+- Save dependencies: `./run.sh --reqs`
 
+## Delete Data Directory
+`./run.sh --clean`
 
 ### Contributors ###
 
 * Kunj S.
-* Ayon B
-* Bharath J. 
-* Wilson Z. 
+* Ayon B.
+* Bharath J.
+* Wilson Z.
