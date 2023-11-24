@@ -1,3 +1,6 @@
 pandas==1.5.3
 sodapy==2.2.0
 carto==1.11.3
+boto3==1.28.69
+numpy>=1.12.1
+psutil==5.9.6
