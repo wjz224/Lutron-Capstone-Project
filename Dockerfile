@@ -18,6 +18,7 @@ RUN apt-get update && apt-get install -y zip && rm -rf /var/lib/apt/lists/*
 # Copy get_data.py for get_data_deploy_socrata
 COPY ./AWS-Lambda-Ingestion/get_data_socrata.py dependencies/
 COPY ./AWS-Lambda-Ingestion/get_data_non_socrata.py dependencies/
+COPY ./AWS-Lambda-Ingestion/combined_data_csv_to_json.py dependencies/
 RUN cd dependencies && zip -r ../get_data_deploy .
 
 # Set the working directory in the container
