@@ -11,7 +11,6 @@ This dashboard provides an overview of the collected data, enabling users to qui
 ![Data Dashboard](https://raw.githubusercontent.com/wjz224/Lutron-Capstone-Project/main/Lutron%20Photos/DataDashboard.png)
 
 #### Graph and Chart Dashboard
----
 Displays various graphs and charts representing the project's performance and insights.
 ![Graph and Chart Dashboard](https://raw.githubusercontent.com/wjz224/Lutron-Capstone-Project/main/Lutron%20Photos/GraphandChartDashboard.png)
 
@@ -21,12 +20,10 @@ This is the main page of the Lutron Permit Capstone application, serving as the 
 
 ## Diagrams:
 #### Cloud Architecture Diagram
----
 A diagram illustrating the architecture of the cloud infrastructure powering the solution.
 ![Cloud Architecture Diagram](https://raw.githubusercontent.com/wjz224/Lutron-Capstone-Project/main/Lutron%20Photos/CloudArchitectureDiagram.png)
 
 #### Sequential Diagram
----
 Depicts the sequence of events and processes for handling the data through the system.
 ![Sequential Diagram](https://raw.githubusercontent.com/wjz224/Lutron-Capstone-Project/main/Lutron%20Photos/SequentialDiagram.png)
 
@@ -56,4 +53,11 @@ Depicts the sequence of events and processes for handling the data through the s
 ## Afterwards drag get_data_deploy.zip folder into s3 bucket and refer to the s3 URI to call lambda function.
 ## Handler for get_data socrata get_data_socrata.lambda_handler
 ## Handler for get_data non_socrata: get_data_non_socrata.lambda_handler
-## Handler for combined_data_csv_to_json: combined_data_csv_t
+## Handler for combined_data_csv_to_json: combined_data_csv_to_json.lambda_handler
+
+### Contributors ###
+
+* Kunj S.
+* Ayon B.
+* Bharath J.
+* Wilson Z.
