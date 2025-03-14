@@ -1,4 +1,7 @@
 # Lutron Permit Capstone
+The Lutron Permit Capstone is a cloud solution that helps Lutron identify valuable contractors and building projects through a visual dashboard.
+
+## Demo:
 
 ## Run Ingestion Scripts
 - Run all scripts: `./run.sh --ingest`
