@@ -3,27 +3,33 @@ The Lutron Permit Capstone is a cloud solution that helps Lutron identify valuab
 
 ## Demo:
 #### City Dashboard NYC
+___
 This is the visual representation of the city dashboard that showcases the geographical distribution of building projects.
 ![City Dashboard NYC](https://raw.githubusercontent.com/wjz224/Lutron-Capstone-Project/main/Lutron%20Photos/CityDashBoardNYC.png)
 
 #### Data Dashboard
+___
 This dashboard provides an overview of the collected data, enabling users to quickly analyze key metrics.
 ![Data Dashboard](https://raw.githubusercontent.com/wjz224/Lutron-Capstone-Project/main/Lutron%20Photos/DataDashboard.png)
 
 #### Graph and Chart Dashboard
+___
 Displays various graphs and charts representing the project's performance and insights.
 ![Graph and Chart Dashboard](https://raw.githubusercontent.com/wjz224/Lutron-Capstone-Project/main/Lutron%20Photos/GraphandChartDashboard.png)
 
 #### Main Page
+___
 The main page of the Lutron Permit Capstone application, serving as the starting point for users.
 ![Main Page](https://raw.githubusercontent.com/wjz224/Lutron-Capstone-Project/main/Lutron%20Photos/MainPage.png)
 
 ## Diagrams:
 #### Cloud Architecture Diagram
+___
 A diagram illustrating the architecture of the cloud infrastructure powering the solution.
 ![Cloud Architecture Diagram](https://raw.githubusercontent.com/wjz224/Lutron-Capstone-Project/main/Lutron%20Photos/CloudArchitectureDiagram.png)
 
 #### Sequential Diagram
+___
 Depicts the sequence of events and processes for handling the data through the system.
 ![Sequential Diagram](https://raw.githubusercontent.com/wjz224/Lutron-Capstone-Project/main/Lutron%20Photos/SequentialDiagram.png)
 
