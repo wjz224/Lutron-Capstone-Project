@@ -4,6 +4,7 @@ The Lutron Permit Capstone is a cloud solution that helps Lutron identify valuab
 ## Demo:
 #### City Dashboard NYC
 This is the visual representation of the city dashboard that showcases the geographical distribution of building projects.
+
 ![City Dashboard NYC](https://raw.githubusercontent.com/wjz224/Lutron-Capstone-Project/main/Lutron%20Photos/CityDashBoardNYC.png)
 
 #### Data Dashboard
